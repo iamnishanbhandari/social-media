@@ -3,13 +3,15 @@ import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
-import NavBar from "./components/NavBar/NavBar";
+// import NavBar from "./components/NavBar/NavBar";
 // import AuthProvider from "./components/context/AuthContext";
+import NavBar from "./components/NavBar/NavBar";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
     <>
-      <NavBar />
+      <Profile />
       {/* <Dashboard /> */}
       {/* <AuthProvider>
         <Router>

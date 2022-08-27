@@ -1,7 +1,15 @@
 import React from "react";
+// import NavBar from "./components/NavBar/NavBar";
+import NavBar from "../NavBar/NavBar";
+import Profile from "../Profile/Profile";
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <NavBar />
+      <Profile />
+    </>
+  );
 };
 
 export default Dashboard;
