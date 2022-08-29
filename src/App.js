@@ -11,8 +11,8 @@ import Profile from "./components/Profile/Profile";
 function App() {
   return (
     <>
-      <Profile />
-      {/* <Dashboard /> */}
+      {/* <Profile /> */}
+      <Dashboard />
       {/* <AuthProvider>
         <Router>
           <Routes>

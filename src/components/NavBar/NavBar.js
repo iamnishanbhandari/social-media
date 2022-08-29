@@ -20,6 +20,7 @@ const NavBar = () => {
             backgroundColor: "rgba(244, 246, 248, 0.733)",
             boxShadow:
               "rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px",
+            backdropFilter: "blur(20px)",
           }}
         >
           <h1 style={{ cursor: "pointer" }}>Social</h1>
