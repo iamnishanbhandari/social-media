@@ -32,10 +32,11 @@ import Signup from "./components/Signup/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./components/context/UserAuthContext";
 import Signin from "./components/Signin/Signin";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
-    <Container style={{ width: "400px" }}>
+    <Container>
       <Row>
         <Col>
           <UserAuthContextProvider>
@@ -49,8 +50,9 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/" element={<Signin />} />
+                <Route path="/signin" element={<Signin />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/profile" element={<Profile />}></Route>
               </Routes>
             </Router>
           </UserAuthContextProvider>

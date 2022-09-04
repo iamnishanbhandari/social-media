@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import GoogleButton from "react-google-button";
+// import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const Signin = () => {
@@ -11,6 +13,11 @@ const Signin = () => {
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
+
+  const [showpassword, setShowPassword] = useState(false);
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showpassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,56 +30,145 @@ const Signin = () => {
     }
   };
 
-  const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      await googleSignIn();
-      navigate("/Dashboard");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
     <>
-      <div className="p-4 box">
-        <h2 className="mb-3">Firebase Auth Login</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
-              type="email"
-              placeholder="Email address"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
-
-          <div className="d-grid gap-2">
-            <Button variant="primary" type="Submit">
-              Log In
-            </Button>
+      <Form onSubmit={handleSubmit}>
+        <div
+          className="sign-container"
+          style={{
+            height: "100vh",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundImage: `url(https://firebasestorage.googleapis.com/v0/b/sandesh-stumble.appspot.com/o/blender2.jpg?alt=media&token=358efdb6-0218-46e4-815a-f30653b64d7e)`,
+            backgroundSize: "cover",
+          }}
+        >
+          <div
+            style={{
+              borderRadius: "15px",
+              width: "350px",
+              height: "38vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundColor: "rgba(249, 250, 251, 0.733)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <h1
+              style={{
+                paddingTop: "5px",
+              }}
+            >
+              Sociakid
+            </h1>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "120px",
+                width: "100%",
+                margin: "5px",
+              }}
+            >
+              <div
+                style={{
+                  // outline: "1px solid navy",
+                  margin: "10px",
+                  width: "250px",
+                  height: "35px",
+                  borderRadius: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#E8F0FE",
+                }}
+              >
+                <input
+                  type={"email"}
+                  placeholder="Type Email Here!!"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    height: "35px",
+                    maxWidth: "200px",
+                    margin: "10px",
+                    borderRadius: "10px",
+                    background: "transparent",
+                  }}
+                ></input>
+              </div>
+              <div
+                style={{
+                  margin: "10px",
+                  width: "250px",
+                  height: "35px",
+                  borderRadius: "10px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#E8F0FE",
+                }}
+              >
+                <input
+                  type={showpassword ? "text" : "password"}
+                  placeholder="Type password Here!!"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    outline: "none",
+                    border: "none",
+                    height: "35px",
+                    maxWidth: "200px",
+                    margin: "10px",
+                    borderRadius: "10px",
+                    background: "transparent",
+                  }}
+                ></input>
+                <button
+                  onClick={handlePasswordVisibility}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showpassword ? <VisibilityIcon /> : <VisibilityOff />}
+                </button>
+              </div>
+            </div>
+            <div style={{}}>
+              <button
+                style={{
+                  border: "none",
+                  outline: "none",
+                  borderRadius: "15px",
+                  height: "35px",
+                  width: "150px",
+                  cursor: "pointer",
+                  backgroundColor: "#CA0C22",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+              >
+                Signin
+              </button>
+            </div>
           </div>
-        </Form>
-        <hr />
-        <div>
-          <GoogleButton
-            className="g-btn"
-            type="dark"
-            onClick={handleGoogleSignIn}
-          />
+          <p style={{ position: "absolute", top: "500px" }}>
+            Don't have an Account?{" "}
+            <Link to={"/signup"}>
+              <span style={{ color: "purple", cursor: "pointer" }}>
+                Create one{" "}
+              </span>
+            </Link>
+          </p>
         </div>
-      </div>
-      <div className="p-4 box mt-3 text-center">
-        Don't have an account? <Link to="/signup">Sign up</Link>
-      </div>
+      </Form>
     </>
   );
 };
