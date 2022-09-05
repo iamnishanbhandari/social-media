@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
 const PostCard = () => {
+  const [likes, setLikes] = useState(10);
+  const [isClicked, setIsClicked] = useState(false);
+  const [comment, setComment] = useState([]);
+  const [input, setInput] = useState();
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setComment((oldItems) => {
+      return [...oldItems, input];
+    });
+    setInput("");
+  };
+
+  const handleClick = (e) => {
+    if (isClicked) {
+      setLikes(likes - 1);
+      e.target.style.color = "black";
+    } else {
+      setLikes(likes + 1);
+      e.target.style.color = "blue";
+    }
+    setIsClicked(!isClicked);
+  };
+
   return (
     <div style={{ height: "80vh" }}>
       <div
@@ -61,8 +89,11 @@ const PostCard = () => {
             gap: "15px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <p>1</p>
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={handleClick}
+          >
+            <p>{likes}</p>
             <ThumbUpOffAltIcon style={{ cursor: "pointer" }} />
           </div>
           <div>
@@ -82,6 +113,7 @@ const PostCard = () => {
           <input
             type={"text"}
             placeholder="Type Here!!!"
+            onChange={handleChange}
             style={{
               width: "100%",
               outline: "none",
@@ -91,8 +123,18 @@ const PostCard = () => {
             }}
           ></input>
           <NearMeOutlinedIcon
+            onClick={handleSubmit}
             style={{ cursor: "pointer", paddingRight: "5px" }}
           />
+        </div>
+        <div className="doList">
+          {comment.map((itemval) => {
+            return (
+              <li style={{ listStyle: "none", margin: "5px 30px" }}>
+                {itemval}
+              </li>
+            );
+          })}
         </div>
       </div>
     </div>
