@@ -4,11 +4,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
+import Like from "../Likes/Like";
 const PostCard = () => {
-  const [likes, setLikes] = useState(10);
-  const [isClicked, setIsClicked] = useState(false);
+  // const [likes, setLikes] = useState(10);
+  // const [isClicked, setIsClicked] = useState(false);
+
   const [comment, setComment] = useState([]);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -22,16 +24,16 @@ const PostCard = () => {
     setInput("");
   };
 
-  const handleClick = (e) => {
-    if (isClicked) {
-      setLikes(likes - 1);
-      e.target.style.color = "black";
-    } else {
-      setLikes(likes + 1);
-      e.target.style.color = "blue";
-    }
-    setIsClicked(!isClicked);
-  };
+  // const handleClick = (e) => {
+  //   if (isClicked) {
+  //     setLikes(likes - 1);
+  //     e.target.style.color = "black";
+  //   } else {
+  //     setLikes(likes + 1);
+  //     e.target.style.color = "blue";
+  //   }
+  //   setIsClicked(!isClicked);
+  // };
 
   return (
     <div style={{ height: "80vh" }}>
@@ -89,53 +91,64 @@ const PostCard = () => {
             gap: "15px",
           }}
         >
-          <div
+          {/* <div
             style={{ display: "flex", alignItems: "center" }}
             onClick={handleClick}
           >
             <p>{likes}</p>
             <ThumbUpOffAltIcon style={{ cursor: "pointer" }} />
-          </div>
+          </div> */}
+          <Like />
           <div>
             <ForumOutlinedIcon style={{ cursor: "pointer" }} />
           </div>
         </div>
-        <div
-          style={{
-            outline: "1px solid #6fbbd3",
-            borderRadius: "15px",
-            width: "80%",
-            display: "flex",
-            justifyContent: "start",
-            marginLeft: "30px",
-          }}
-        >
-          <input
-            type={"text"}
-            placeholder="Type Here!!!"
-            onChange={handleChange}
+        <form>
+          <div
             style={{
-              width: "100%",
-              outline: "none",
-              border: "none",
-              fontSize: "15px",
-              marginLeft: "10px",
+              outline: "1px solid #6fbbd3",
+              borderRadius: "15px",
+              width: "80%",
+              display: "flex",
+              justifyContent: "start",
+              marginLeft: "30px",
             }}
-          ></input>
-          <NearMeOutlinedIcon
-            onClick={handleSubmit}
-            style={{ cursor: "pointer", paddingRight: "5px" }}
-          />
-        </div>
-        <div className="doList">
-          {comment.map((itemval) => {
-            return (
-              <li style={{ listStyle: "none", margin: "5px 30px" }}>
-                {itemval}
-              </li>
-            );
-          })}
-        </div>
+          >
+            <input
+              type={"text"}
+              placeholder="Type Here!!!"
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                outline: "none",
+                border: "none",
+                fontSize: "15px",
+                marginLeft: "10px",
+              }}
+            ></input>
+            <button
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                borderRadius: "12px",
+              }}
+            >
+              <NearMeOutlinedIcon
+                onClick={handleSubmit}
+                style={{ cursor: "pointer", paddingRight: "5px" }}
+              />
+            </button>
+          </div>
+          <div className="doList">
+            {comment.map((itemval) => {
+              return (
+                <li style={{ listStyle: "none", margin: "5px 30px" }}>
+                  {itemval}
+                </li>
+              );
+            })}
+          </div>
+        </form>
       </div>
     </div>
   );
