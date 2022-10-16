@@ -3,20 +3,19 @@ import AddButton from "../Addbutton/AddButton";
 // import NavBar from "./components/NavBar/NavBar";
 import NavBar from "../NavBar/NavBar";
 // import Profile from "../Profile/Profile";
-import PostCard from "./PostCard";
+import Article from "./Article";
+import Articles from "./Articles";
+import AddArticle from "./Addarticle";
 
 const Dashboard = () => {
   return (
     <>
       <NavBar />
-      <AddButton />
+      <AddArticle />
+
       {/* <Profile /> */}
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
+      {/* <Article /> */}
+      <Articles />
     </>
   );
 };

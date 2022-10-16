@@ -33,6 +33,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./components/context/UserAuthContext";
 import Signin from "./components/Signin/Signin";
 import Profile from "./components/Profile/Profile";
+import { Navigate } from "react-router-dom";
+import Article from "./components/Dashboard/Article";
+import Articles from "./components/Dashboard/Articles";
+import AddArticle from "./components/Dashboard/Addarticle";
 
 function App() {
   return (
@@ -51,8 +55,24 @@ function App() {
                   }
                 />
                 <Route path="/" element={<Signin />} />
+                {/* <Route path="/" element={<Navigate replace to="/Signin" />} /> */}
+
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />}></Route>
+                <Route path="/article/:id" element={<Article />} />
+                <Route
+                  path="/"
+                  element={
+                    <div>
+                      <div>
+                        <Articles />
+                      </div>
+                      <div>
+                        <AddArticle />
+                      </div>
+                    </div>
+                  }
+                />
               </Routes>
             </Router>
           </UserAuthContextProvider>

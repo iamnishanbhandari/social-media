@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 // import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
+import { toast } from "react-toastify";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -24,8 +24,10 @@ const Signin = () => {
     setError("");
     try {
       await logIn(email, password);
+
       navigate("/Dashboard");
     } catch (err) {
+      // toast(err.code, { type: "error" });
       setError(err.message);
     }
   };
@@ -33,6 +35,7 @@ const Signin = () => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
+        <div>{error && <Alert>{error}</Alert>}</div>
         <div
           className="sign-container"
           style={{
@@ -129,7 +132,7 @@ const Signin = () => {
                     background: "transparent",
                   }}
                 ></input>
-                <button
+                <span
                   onClick={handlePasswordVisibility}
                   style={{
                     backgroundColor: "transparent",
@@ -138,11 +141,12 @@ const Signin = () => {
                   }}
                 >
                   {showpassword ? <VisibilityIcon /> : <VisibilityOff />}
-                </button>
+                </span>
               </div>
             </div>
             <div style={{}}>
               <button
+                type="submit"
                 style={{
                   border: "none",
                   outline: "none",

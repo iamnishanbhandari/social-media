@@ -6,6 +6,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useAuthState from "../context/hooks";
+import { Avatar } from "@mui/material";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../Firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -27,11 +31,23 @@ const Signup = () => {
     setError("");
     try {
       await signUp(email, password, confirmPassword, name, username);
-      navigate("/signin");
+      updateProfile(auth.currentUser, { displayName: name });
+
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
   };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     await createUserWithEmailAndPassword(auth, email, password);
+  //     updateProfile(auth.currentUser, { displayName: name });
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast(error.code, { type: "error" });
+  //   }
+  // };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -143,14 +159,12 @@ const Signup = () => {
                   </div>
                 </div>
                 <div style={{ fontSize: "30px" }}>
-                  <Link to={"/Profile"}>
-                    <AccountCircleIcon
-                      style={{
-                        height: "90px",
-                        width: "100%",
-                      }}
-                    />
-                  </Link>
+                  <Avatar
+                    style={{
+                      height: "90px",
+                      width: "90px",
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -308,7 +322,7 @@ const Signup = () => {
           </div>
           <p style={{ position: "absolute", marginTop: "500px" }}>
             Already Have an Account?
-            <Link to={"/Signin"}>
+            <Link to={"/"}>
               <span style={{ color: "purple", cursor: "pointer" }}>Login</span>
             </Link>
           </p>

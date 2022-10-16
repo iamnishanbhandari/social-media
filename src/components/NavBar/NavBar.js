@@ -3,8 +3,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase/firebaseConfig";
 import { Link } from "react-router-dom";
+import { Logout } from "@mui/icons-material";
+import { Box } from "@mui/material";
+// import { useAuthState } from "../context/hooks";
+// import { useUserAuth } from "./context/UserAuthContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const NavBar = () => {
+  const [user] = useAuthState(auth);
   return (
     <div className="NavContainer">
       <div>
@@ -38,6 +47,7 @@ const NavBar = () => {
               Social
             </h1>
           </Link>
+
           <div
             style={{
               border: "1px solid #717273",
@@ -64,6 +74,15 @@ const NavBar = () => {
             ></input>
           </div>
           <div>
+            {user && (
+              <>
+                {/* <span>{user.email}</span> */}
+                <span>{user.displayName}</span>
+              </>
+            )}
+          </div>
+
+          <div>
             <ul style={{ display: "flex", gap: "25px", listStyleType: "none" }}>
               <li style={{ cursor: "pointer" }}>
                 <Link to={"/Dashboard"}>
@@ -76,9 +95,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li style={{ cursor: "pointer" }}>
-                <Link to={"/Signin"}>
-                  <LogoutSharpIcon style={{ color: "#B72136" }} />
-                </Link>
+                <Box component={Logout} onClick={() => signOut(auth)} />
               </li>
             </ul>
           </div>
